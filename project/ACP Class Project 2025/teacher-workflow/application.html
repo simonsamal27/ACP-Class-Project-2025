@@ -1,0 +1,286 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Teacher Application - ACP System</title>
+  <link rel="stylesheet" href="../style.css" />
+  <link rel="stylesheet" href="application.css" />
+</head>
+<body>
+  <div class="container">
+    <div class="brandbar">
+      <span class="title">Application</span>
+      <span class="tag">University of Missouri Saint Louis - Advanced Credit Program</span>
+    </div>
+
+    <h2>Teacher Application</h2>
+    <p class="sub">Fields with * are required.</p>
+
+    <p id="applicationMessage" class="message" style="display:none"></p>
+
+    <div class="card">
+      <div class="card-header">
+        <span class="badge">Step 1–3</span>
+        <strong>Complete all sections, then submit.</strong>
+      </div>
+      <div class="card-body">
+
+        <form id="applicationForm" novalidate>
+          <!-- Personal -->
+          <section class="form-section">
+            <h3>Personal Information</h3>
+            <div class="grid-2">
+              <div class="row">
+                <label for="firstName">First Name *</label>
+                <input id="firstName" type="text" required>
+              </div>
+              <div class="row">
+                <label for="lastName">Last Name *</label>
+                <input id="lastName" type="text" required>
+              </div>
+              <div class="row">
+                <label for="email">Email *</label>
+                <input id="email" type="email" required>
+              </div>
+              <div class="row">
+                <label for="phone">Phone *</label>
+                <input id="phone" type="tel" required>
+              </div>
+              <div class="row" style="grid-column:1/-1">
+                <label for="school">School Name *</label>
+                <input id="school" type="text" required>
+              </div>
+            </div>
+          </section>
+
+          <div class="divider"></div>
+
+          <!-- School -->
+          <section class="form-section">
+            <h3>School Details</h3>
+            <div class="grid-2">
+              <div class="row">
+                <label for="district">District *</label>
+                <input id="district" type="text" required>
+              </div>
+              <div class="row">
+                <label for="city">City</label>
+                <input id="city" type="text">
+              </div>
+              <div class="row">
+                <label for="state">State</label>
+                <input id="state" type="text">
+              </div>
+              <div class="row">
+                <label for="zip">ZIP</label>
+                <input id="zip" type="text" inputmode="numeric" pattern="^\\d{5}(-\\d{4})?$">
+              </div>
+            </div>
+          </section>
+
+          <div class="divider"></div>
+
+          <!-- Course & Eligibility -->
+          <section class="form-section">
+            <h3>Course & Eligibility</h3>
+            <div class="grid-2">
+              <div class="row">
+                <label for="department">Department *</label>
+                <select id="department" required>
+                  <option value="">Select Department</option>
+                  <option>Language & Cultural Studies</option>
+                  <option>History Department</option>
+                  <option>Economics</option>
+                  <option>Chemistry & Biochemistry</option>
+                  <option>English Department</option>
+                  <option>Sociology</option>
+                  <option>Communication & Media</option>
+                  <option>Mathematics & Statistics</option>
+                  <option>Biology</option>
+                  <option>Computer Science</option>
+                  <option>Political Science / Gender Studies</option>
+                  <option>Art & Art History</option>
+                  <option>Philosophy</option>
+                  <option>Physics</option>
+                  <option>Psychological Sciences</option>
+                  <option>Education</option>
+                  <option>Languages & Cultures</option>
+                </select>
+              </div>
+
+              <div class="row">
+                <label for="eligibility">Eligibility *</label>
+                <select id="eligibility" required>
+                  <option value="">Select one</option>
+                  <option value="masters-in-discipline">I have a master’s in the discipline I’m applying for</option>
+                  <option value="masters-18-hours">I have a master’s in another discipline and at least 18 graduate hours in the discipline I’m applying for</option>
+                  <option value="combo-experience-education">I have a combination of field experience and education</option>
+                </select>
+              </div>
+
+              <div class="row" style="grid-column:1/-1">
+                <label for="degree">Highest Degree & Field *</label>
+                <input id="degree" type="text" placeholder="e.g., M.S. Chemistry" required>
+              </div>
+
+              <div class="row" style="grid-column:1/-1">
+                <label for="experience">Relevant Teaching or Industry Experience *</label>
+                <textarea id="experience" required></textarea>
+                <div class="helper">Summarize qualifications relevant to the selected department.</div>
+              </div>
+            </div>
+          </section>
+
+          <div class="divider"></div>
+
+          <!-- Documents -->
+          <section class="form-section">
+            <h3>Documents</h3>
+            <div class="grid-2">
+              <div class="row" style="grid-column:1/-1">
+                <label for="transcript">Graduate Transcript (PDF) *</label>
+                <input id="transcript" type="file" accept="application/pdf" required>
+                <div class="helper">Unofficial transcript is acceptable.</div>
+              </div>
+              <div class="row" style="grid-column:1/-1">
+                <label for="coverLetter">Cover Letter (PDF) *</label>
+                <input id="coverLetter" type="file" accept="application/pdf" required>
+              </div>
+              <div class="row" style="grid-column:1/-1">
+                <label for="resume">Resume (PDF) *</label>
+                <input id="resume" type="file" accept="application/pdf" required>
+              </div>
+            </div>
+          </section>
+
+          <div class="divider"></div>
+
+          <!-- Agreements -->
+          <section class="form-section">
+            <h3>Agreement</h3>
+            <div class="row">
+              <label>
+                <input type="checkbox" id="agreePolicy" required>
+                I certify the information is accurate. *
+              </label>
+            </div>
+            <div class="grid-2">
+              <div class="row">
+                <label for="signature">Typed Signature *</label>
+                <input id="signature" type="text" required placeholder="Type your full name">
+              </div>
+              <div class="row">
+                <label for="sigDate">Date *</label>
+                <input id="sigDate" type="date" required>
+              </div>
+            </div>
+          </section>
+
+          <div class="actions">
+            <button class="btn btn-primary" type="submit">Submit Application</button>
+            <button class="btn btn-secondary" type="button" id="saveDraftBtn">Save Draft</button>
+            <button class="btn btn-secondary" type="button" id="clearDraftBtn">Clear Draft</button>
+          </div>
+        </form>
+
+      </div>
+    </div>
+
+    <p style="margin-top:14px"><a href="../dashboard.html">← Back to Dashboard</a></p>
+  </div>
+
+  <script src="../script.js"></script>
+  <script src="api.js"></script>
+
+  <script>
+    // auth guard
+    if (typeof requireAuth === 'function') requireAuth();
+    else {
+      try {
+        const s = JSON.parse(localStorage.getItem('acp_session')||'null');
+        if (!s || !s.email) location.href = '../index.html';
+      } catch { location.href = '../index.html'; }
+    }
+
+    // prefill date
+    (function(){ const d=document.getElementById('sigDate'); if(d && !d.value){ d.value=new Date().toISOString().slice(0,10);} })();
+
+    const form = document.getElementById('applicationForm');
+    const msg  = document.getElementById('applicationMessage');
+    const DRAFT_KEY = 'acp-teacher-app-draft';
+
+    function getFileName(input){ return input && input.files && input.files[0] ? input.files[0].name : ''; }
+
+    function getFormData(){
+      return {
+        firstName:firstName.value.trim(),
+        lastName:lastName.value.trim(),
+        email:email.value.trim(),
+        phone:phone.value.trim(),
+        school:school.value.trim(),
+        district:district.value.trim(),
+        city:city.value.trim(),
+        state:state.value.trim(),
+        zip:zip.value.trim(),
+        department:department.value,
+        eligibility:eligibility.value,
+        degree:degree.value.trim(),
+        experience:experience.value.trim(),
+        // files: for now we store filenames; real upload handled by backend later
+        transcriptName: getFileName(document.getElementById('transcript')),
+        coverLetterName: getFileName(document.getElementById('coverLetter')),
+        resumeName: getFileName(document.getElementById('resume')),
+        agreePolicy:agreePolicy.checked,
+        signature:signature.value.trim(),
+        sigDate:sigDate.value
+      };
+    }
+
+    function showMsg(t){ msg.style.display='block'; msg.textContent=t; }
+    function saveDraft(){ localStorage.setItem(DRAFT_KEY, JSON.stringify(getFormData())); showMsg('💾 Draft saved locally.'); }
+    function restoreDraft(){ const r=localStorage.getItem(DRAFT_KEY); if(!r) return; const d=JSON.parse(r); for(const[k,v]of Object.entries(d)){const el=document.getElementById(k); if(!el)continue; if(el.type==='checkbox') el.checked=!!v; else if(el.type!=='file') el.value=v;} showMsg('Draft restored. (Files must be re-selected)'); }
+    function clearDraft(){ localStorage.removeItem(DRAFT_KEY); form.reset(); showMsg('Draft cleared.'); }
+
+    document.getElementById('saveDraftBtn').addEventListener('click', saveDraft);
+    document.getElementById('clearDraftBtn').addEventListener('click', clearDraft);
+    restoreDraft();
+
+    form.addEventListener('submit', async (e) => {
+  e.preventDefault();
+
+  // Check validity first — this forces all required (*) fields to be filled
+  if (!form.checkValidity()) {
+    form.reportValidity(); // This triggers browser error messages for missing fields
+    showMsg('⚠️ Please complete all required fields marked with * before submitting.');
+    return; // stops here — user must fix missing fields
+  }
+
+  // Optional: visually highlight missing ones (extra polish)
+  document.querySelectorAll('[required]').forEach(el => {
+    el.classList.remove('error-highlight');
+    if (!el.value.trim() && el.type !== 'checkbox' && el.type !== 'file') {
+      el.classList.add('error-highlight');
+    }
+    if (el.type === 'checkbox' && !el.checked) {
+      el.classList.add('error-highlight');
+    }
+  });
+
+  // If everything looks good, proceed with submission
+  try {
+    const res = await submitTeacherApplication(getFormData());
+    if (res && res.ok) {
+      clearDraft();
+      showMsg('✅ Submitted! Application ID: ' + (res.id || 'pending'));
+    } else {
+      showMsg('⚠️ Submission failed. Please try again.');
+    }
+  } catch (err) {
+    showMsg('❌ Network error: ' + (err.message || err));
+  }
+});
+
+  </script>
+</body>
+</html>

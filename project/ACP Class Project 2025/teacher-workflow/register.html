@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Register - ACP System</title>
+<link rel="stylesheet" href="style.css">
+// adding so colors can match 
+<style>
+ h2 {
+    color: #A6192E;
+  }
+
+  button {
+    background-color: #A6192E;
+    color: white;
+    border: none;
+    padding: 10px;
+    border-radius: 6px;
+    cursor: pointer;
+  }
+
+  button:hover {
+    background-color: #8F1428;
+  }
+
+  a {
+    color: #A6192E;
+    text-decoration: none;
+  }
+
+  a:hover {
+    text-decoration: underline;
+  }
+
+  .message {
+    color: #A6192E;
+  }</style>
+</head>
+<body>
+<div class="container">
+    <h2>Register</h2>
+    <form id="registerForm">
+        <input type="text" id="name" placeholder="Full Name" required>
+        <input type="email" id="email" placeholder="Email" required>
+        <input type="password" id="password" placeholder="Password" required>
+        <button type="submit">Register</button>
+    </form>
+    <p>Already have an account? <a href="index.html">Login here</a></p>
+    <p id="registerMessage" class="message"></p>
+</div>
+<script src="script.js"></script>
+</body>
+</html>

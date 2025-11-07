@@ -1,0 +1,159 @@
+/* --- UMSL Professional theme (application.css) --- */
+:root{
+  --umsl-red:#A6192E;
+  --umsl-red-600:#7D1220;
+  --umsl-gold:#FFC72C;
+  --ink:#1e1f23;
+  --muted:#5b6270;
+  --border:#e6e8ee;
+  --bg:#f7f8fb;
+  --card:#ffffff;
+}
+*{box-sizing:border-box}
+html,body{height:100%}
+body{
+  margin:0;
+  font-family: system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, "Apple Color Emoji","Segoe UI Emoji";
+  color:var(--ink);
+  background: var(--bg);
+}
+
+/* Page shell */
+.container{
+  max-width: 960px;
+  margin: 40px auto 72px;
+  padding: 0 20px;
+}
+h2{
+  margin:0 0 12px;
+  font-size: 1.9rem;
+  letter-spacing:.2px;
+  /* UMSL red for headings */
+  color: var(--umsl-red);
+}
+.sub{
+  color:var(--muted);
+  margin:0 0 22px;
+}
+
+/* Card */
+.card{
+  background:var(--card);
+  border:1px solid var(--border);
+  border-radius:16px;
+  box-shadow: 0 8px 22px rgba(10,12,18,.06);
+  overflow:hidden;
+}
+.card-header{
+  padding:14px 18px;
+  background:linear-gradient(180deg, #fff, #fafbff);
+  border-bottom:1px solid var(--border);
+  display:flex; align-items:center; gap:12px;
+}
+.badge{
+  font-weight:700; font-size:.8rem;
+  color:#fff; background:var(--umsl-red);
+  padding:4px 10px; border-radius:999px;
+}
+.card-body{ padding: 18px; }
+
+/* Sections */
+.form-section{ padding: 12px 0 4px; }
+.form-section h3{
+  margin:14px 0 10px;
+  font-size:1.05rem; font-weight:700;
+  color:var(--umsl-red-600);
+}
+
+/* Grid */
+.grid-2{
+  display:grid;
+  grid-template-columns: 1fr;
+  gap:12px;
+}
+@media (min-width: 760px){
+  .grid-2{ grid-template-columns: 1fr 1fr; }
+}
+.row{ margin-bottom:10px }
+
+/* Inputs */
+label{ display:block; font-size:.92rem; color:var(--muted); margin:0 0 6px; }
+input[type="text"], input[type="email"], input[type="tel"],
+input[type="date"], select, textarea{
+  width:100%;
+  border:1px solid var(--border);
+  background:#fff;
+  padding:10px 12px;
+  border-radius:10px;
+  font-size: .98rem;
+  outline:none;
+  transition: box-shadow .2s, border-color .2s, background .2s;
+}
+textarea{ min-height:110px; resize:vertical }
+input:focus, select:focus, textarea:focus{
+  border-color: var(--umsl-red);
+  box-shadow: 0 0 0 4px rgba(166,25,46,.15);
+}
+
+/* Actions */
+.actions{ display:flex; flex-wrap:wrap; gap:10px; margin-top:8px }
+.btn{
+  appearance:none; border:0; cursor:pointer;
+  padding:10px 16px; border-radius:12px; font-weight:700;
+}
+.btn-primary{
+  background:var(--umsl-red); color:#fff;
+}
+.btn-primary:hover{ background:var(--umsl-red-600) }
+.btn-secondary{
+  background:#f3f5fa; color:var(--ink); border:1px solid var(--border);
+}
+.helper{ color:var(--muted); font-size:.85rem; margin-top:6px }
+
+/* Message (neutral card style by default) */
+.message{
+  margin: 10px 0 16px; padding: 10px 12px; border-radius:10px;
+  background:#f9fafc; border:1px solid var(--border); color:var(--muted);
+}
+
+/* Divider */
+.divider{ height:1px; background:var(--border); margin: 14px 0; }
+
+/* Small “UMSL bar” header (optional, no logos) */
+.brandbar{
+  background:var(--umsl-red); color:#fff; padding:8px 16px;
+  border-radius: 10px; margin-bottom:14px;
+  display:flex; align-items:center; justify-content:space-between;
+}
+.brandbar .title{ font-weight:800; letter-spacing:.4px }
+.brandbar .tag{ font-size:.85rem; background:rgba(255,255,255,.16); padding:3px 8px; border-radius:999px }
+
+/* ================================
+   Global UMSL color accents
+   (applies to simple pages like register.html)
+   ================================ */
+
+/* Buttons without classes */
+button{
+  background-color: var(--umsl-red);
+  color: #fff;
+  border: none;
+  padding: 10px 14px;
+  border-radius: 8px;
+  cursor: pointer;
+}
+button:hover{ background-color: var(--umsl-red-600); }
+
+/* Links */
+a{ color: var(--umsl-red); text-decoration: none; }
+a:hover{ text-decoration: underline; }
+
+/* Accent message (optional: make messages red on simple pages) */
+.message--accent,
+.container > .message { color: var(--umsl-red); }
+
+/* Validation helpers (for your strict validation tweak) */
+.error-highlight{
+  border-color: var(--umsl-red) !important;
+  background-color: #fff6f7;
+}

@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Dashboard - ACP System</title>
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+<div class="container">
+    <h2>Welcome, <span id="userName"></span></h2>
+
+    <!-- Application Form -->
+    <form id="applicationForm">
+        <h3>Submit Teacher Application</h3>
+        <input type="text" id="subject" placeholder="Subject" required>
+        <input type="file" id="resume" required>
+        <button type="submit">Submit Application</button>
+    </form>
+    
+    <h3>Your Applications</h3>
+    <table id="applicationsTable">
+        <thead>
+            <tr>
+                <th>Subject</th>
+                <th>Status</th>
+            </tr>
+        </thead>
+        <tbody></tbody>
+    </table>
+
+    <button id="logoutBtn">Logout</button>
+    <p id="appMessage" class="message"></p>
+</div>
+<script src="script.js"></script>
+</body>
+</html>
+
+
+
