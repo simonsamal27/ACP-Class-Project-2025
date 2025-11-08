@@ -5,3 +5,11 @@ build/
 *.log
 .env
 .env.*
+/node_modules/
+**/node_modules/
+.DS_Store
+*.log
+dist/
+build/
+.env
+.env.*
