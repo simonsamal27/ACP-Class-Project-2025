@@ -13,7 +13,12 @@ body {
 }
 
 h2, h3 {
+    color: #A6192E;
+}
+
+.container h2 {
     text-align: center;
+    color: black;
 }
 
 input, button {
@@ -24,14 +29,31 @@ input, button {
 }
 
 button {
-    background-color: #007BFF;
+    background-color: #A6192E;
     color: white;
     border: none;
+    padding: 10px;
+    border-radius: 8px;
     cursor: pointer;
+    width: 100%;
+    font-size: 1em;
+    transition: background-color 0.3s;
 }
 
 button:hover {
-    background-color: #0056b3;
+    filter: #8F1428;
+}
+a {
+    color: #A6192E;
+    text-decoration: none;
+    font-size: 0.9em;
+}
+a:hover{
+    text-decoration: underline;
+}
+.center-link{
+    text-align: center;
+    margin-top: 12px;
 }
 
 table {

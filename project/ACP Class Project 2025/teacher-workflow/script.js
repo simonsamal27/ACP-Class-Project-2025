@@ -42,23 +42,55 @@ if(loginForm){
 }
 
 // --------------------- Forgot Password ---------------------
+document.addEventListener("DOMContentLoaded", () => {
+    console.log("Forgot password script is loaded");
+    
 const forgotForm = document.getElementById('forgotForm');
+const messageEl = document.getElementById('forgotMessage');
 if(forgotForm){
-    forgotForm.addEventListener('submit', async (e)=>{
+   console.log("Forgot form not found on this page");
+   return;
+}
+    forgotForm.addEventListender('submit', async (e) => {
         e.preventDefault();
-        const email = document.getElementById('email').value;
-        const newPassword = document.getElementById('newPassword').value;
-
-        const res = await fetch('/reset-password',{
+        
+        const email = document.getElementById('email').value.trim();
+        const newPassword = document.getElementById('newPassword').value.trim();
+        if (!email || !newPassword) {
+            showMessage("Please fill in all fields.", "error");
+            return;
+        }
+        try {
+            const res = await fetch('/reset-password',{
             method:'POST',
             headers:{'Content-Type':'application/json'},
             body:JSON.stringify({email,newPassword})
         });
+        
+          if (!res.ok) {
+            showMessage("Server error. Please try again later.", "error");
+            return;
+        }
         const data = await res.json();
-        document.getElementById('forgotMessage').innerText = data.message;
-        if(data.success) setTimeout(()=>window.location.href='index.html',1000);
+        showMessage(data.message, data.success ? "success" : "error");
+        
+        if (data.success) {
+            setTimeout(() => (window.location.href = 'index.html'), 1500);
+        }
+    }
+         catch(err) {
+            console.error(err);
+            showMessage("Network error. Please check your connection.", "error");
+        }
     });
-}
+
+   
+        function showMessage(text, type) {
+            messageEl.textContent = text;
+            messageEl.className = 'message ${type}';
+        }
+    });
+
 
 // --------------------- Dashboard ---------------------
 const userId = localStorage.getItem('userId');
