@@ -9,8 +9,10 @@
   --bg:#f7f8fb;
   --card:#ffffff;
 }
+
 *{box-sizing:border-box}
 html,body{height:100%}
+
 body{
   margin:0;
   font-family: system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, "Apple Color Emoji","Segoe UI Emoji";
@@ -21,8 +23,8 @@ body{
 /* Page shell */
 .container{
   max-width: 960px;
-  margin: 40px auto 72px;
-  padding: 0 20px;
+  margin: 40px auto;
+  padding: 0 20px 120px;
 }
 h2{
   margin:0 0 12px;
@@ -156,4 +158,28 @@ a:hover{ text-decoration: underline; }
 .error-highlight{
   border-color: var(--umsl-red) !important;
   background-color: #fff6f7;
+}
+
+/* ---------------------------------
+   Back-to-Dashboard Button (UMSL Red)
+   --------------------------------- */
+.btn-link {
+  display: inline-block;
+  margin: 1rem 0;
+  padding: 0.5rem 1rem;
+  background-color: var(--umsl-red);   /* UMSL red */
+  color: #ffffff;
+  text-decoration: none;
+  border-radius: 8px;
+  font-weight: 700;
+  transition: background-color 0.2s ease, transform 0.1s ease;
+}
+
+.btn-link:hover {
+  background-color: var(--umsl-red-600);  /* darker red on hover */
+  transform: scale(1.03);
+}
+
+.btn-link:active {
+  transform: scale(0.98);
 }
