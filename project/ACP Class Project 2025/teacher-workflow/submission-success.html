@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Application Submitted - ACP System</title>
+  <link rel="stylesheet" href="../style.css" />
+  <link rel="stylesheet" href="application.css" />
+</head>
+<body>
+  <div class="container" style="text-align:center; padding-top:80px;">
+    <h2>✅ Application Submitted Successfully!</h2>
+    <p style="font-size:1.1rem; color:var(--muted);">
+      Thank you for submitting your application.
+    </p>
+
+    <p id="appId" style="margin-top:16px; font-weight:600; color:var(--umsl-red-600);">
+      Application ID: <span></span>
+    </p>
+
+    <a href="dashboard.html" class="btn btn-primary" style="margin-top:24px;">← Back to Dashboard</a>
+  </div>
+
+  <script>
+    // Read ?id=... from URL and display it
+    const params = new URLSearchParams(window.location.search);
+    const id = params.get("id");
+    if (id) {
+      document.querySelector("#appId span").textContent = id;
+    } else {
+      document.querySelector("#appId").textContent = "Application ID not available.";
+    }
+  </script>
+</body>
+</html>

@@ -78,7 +78,7 @@
               </div>
               <div class="row">
                 <label for="zip">ZIP</label>
-                <input id="zip" type="text" inputmode="numeric" pattern="^\\d{5}(-\\d{4})?$">
+<input id="zip" type="text" inputmode="numeric" pattern="^\d{5}(-\d{4})?$">
               </div>
             </div>
           </section>
@@ -261,9 +261,15 @@
       try {
         const res = await submitTeacherApplication(getFormData());
         if (res && res.ok) {
-          clearDraft();
-          showMsg('✅ Submitted! Application ID: ' + (res.id || 'pending'));
-        } else {
+  clearDraft();
+
+  // Get the ID (or fallback)
+  const appId = res.id || 'pending';
+
+  // Redirect to the confirmation page with the ID in the URL
+  window.location.href = `submission-success.html?id=${encodeURIComponent(appId)}`;
+}
+else {
           showMsg('⚠️ Submission failed. Please try again.');
         }
       } catch (err) {
