@@ -6,8 +6,12 @@
   <title>Teacher Application - ACP System</title>
   <link rel="stylesheet" href="../style.css" />
   <link rel="stylesheet" href="application.css" />
+  <p><a href="../dashboard.html">← Back to Dashboard</a></p>
+
 </head>
 <body>
+
+  
   <div class="container">
     <div class="brandbar">
       <span class="title">Application</span>
@@ -194,15 +198,6 @@
   <script src="api.js"></script>
 
   <script>
-    // auth guard
-    if (typeof requireAuth === 'function') requireAuth();
-    else {
-      try {
-        const s = JSON.parse(localStorage.getItem('acp_session')||'null');
-        if (!s || !s.email) location.href = '../index.html';
-      } catch { location.href = '../index.html'; }
-    }
-
     // prefill date
     (function(){ const d=document.getElementById('sigDate'); if(d && !d.value){ d.value=new Date().toISOString().slice(0,10);} })();
 
@@ -227,7 +222,6 @@
         eligibility:eligibility.value,
         degree:degree.value.trim(),
         experience:experience.value.trim(),
-        // files: for now we store filenames; real upload handled by backend later
         transcriptName: getFileName(document.getElementById('transcript')),
         coverLetterName: getFileName(document.getElementById('coverLetter')),
         resumeName: getFileName(document.getElementById('resume')),
@@ -247,40 +241,36 @@
     restoreDraft();
 
     form.addEventListener('submit', async (e) => {
-  e.preventDefault();
+      e.preventDefault();
 
-  // Check validity first — this forces all required (*) fields to be filled
-  if (!form.checkValidity()) {
-    form.reportValidity(); // This triggers browser error messages for missing fields
-    showMsg('⚠️ Please complete all required fields marked with * before submitting.');
-    return; // stops here — user must fix missing fields
-  }
+      if (!form.checkValidity()) {
+        form.reportValidity();
+        showMsg('⚠️ Please complete all required fields marked with * before submitting.');
+        return;
+      }
 
-  // Optional: visually highlight missing ones (extra polish)
-  document.querySelectorAll('[required]').forEach(el => {
-    el.classList.remove('error-highlight');
-    if (!el.value.trim() && el.type !== 'checkbox' && el.type !== 'file') {
-      el.classList.add('error-highlight');
-    }
-    if (el.type === 'checkbox' && !el.checked) {
-      el.classList.add('error-highlight');
-    }
-  });
+      document.querySelectorAll('[required]').forEach(el => {
+        el.classList.remove('error-highlight');
+        if (!el.value.trim() && el.type !== 'checkbox' && el.type !== 'file') {
+          el.classList.add('error-highlight');
+        }
+        if (el.type === 'checkbox' && !el.checked) {
+          el.classList.add('error-highlight');
+        }
+      });
 
-  // If everything looks good, proceed with submission
-  try {
-    const res = await submitTeacherApplication(getFormData());
-    if (res && res.ok) {
-      clearDraft();
-      showMsg('✅ Submitted! Application ID: ' + (res.id || 'pending'));
-    } else {
-      showMsg('⚠️ Submission failed. Please try again.');
-    }
-  } catch (err) {
-    showMsg('❌ Network error: ' + (err.message || err));
-  }
-});
-
+      try {
+        const res = await submitTeacherApplication(getFormData());
+        if (res && res.ok) {
+          clearDraft();
+          showMsg('✅ Submitted! Application ID: ' + (res.id || 'pending'));
+        } else {
+          showMsg('⚠️ Submission failed. Please try again.');
+        }
+      } catch (err) {
+        showMsg('❌ Network error: ' + (err.message || err));
+      }
+    });
   </script>
 </body>
 </html>

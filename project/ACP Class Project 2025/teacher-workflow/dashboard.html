@@ -1,40 +1,159 @@
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Dashboard - ACP System</title>
-<link rel="stylesheet" href="style.css">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Teacher Dashboard - ACP System</title>
+  <script src="https://cdn.tailwindcss.com"></script>
 </head>
-<body>
-<div class="container">
-    <h2>Welcome, <span id="userName"></span></h2>
+<body class="bg-gray-100 min-h-screen flex flex-col">
 
-    <!-- Application Form -->
-    <form id="applicationForm">
-        <h3>Submit Teacher Application</h3>
-        <input type="text" id="subject" placeholder="Subject" required>
-        <input type="file" id="resume" required>
-        <button type="submit">Submit Application</button>
-    </form>
-    
-    <h3>Your Applications</h3>
-    <table id="applicationsTable">
-        <thead>
-            <tr>
-                <th>Subject</th>
-                <th>Status</th>
-            </tr>
-        </thead>
-        <tbody></tbody>
-    </table>
+  <!-- Header -->
+  <header class="bg-[#A6192E] text-white py-4 shadow-md">
+    <div class="max-w-5xl mx-auto flex justify-between items-center px-4">
+      <h1 class="text-2xl font-bold">ACP Teacher Dashboard</h1>
+      <nav>
+        <button id="logoutBtn" class="bg-white text-[#A6192E] px-3 py-1 rounded hover:bg-gray-200 transition">Logout</button>
+      </nav>
+    </div>
+  </header>
 
-    <button id="logoutBtn">Logout</button>
-    <p id="appMessage" class="message"></p>
-</div>
-<script src="script.js"></script>
+  <!-- Main Content -->
+  <main class="flex-grow max-w-5xl mx-auto px-4 py-8 space-y-6">
+    <h2 class="text-xl font-semibold mb-4">Welcome, <span id="teacherName"></span></h2>
+
+    <!-- Application Status & Progress -->
+    <div class="bg-white shadow-md rounded-lg p-6">
+      <h3 class="text-lg font-semibold mb-2">Your Application Status</h3>
+      <p class="text-gray-700 mb-2">Status: <span id="appStatus" class="font-bold"></span></p>
+      <div class="w-full bg-gray-200 rounded-full h-4">
+        <div id="progressBar" class="bg-[#A6192E] h-4 rounded-full w-0"></div>
+      </div>
+    </div>
+
+    <!-- Application Details -->
+    <div class="bg-white shadow-md rounded-lg p-6">
+      <h3 class="text-lg font-semibold mb-4">Your Application Details</h3>
+      <div id="appDetails" class="grid grid-cols-1 md:grid-cols-2 gap-4">
+        <!-- Details populated by JS -->
+      </div>
+    </div>
+
+    <!-- Documents Section -->
+    <div class="bg-white shadow-md rounded-lg p-6">
+      <h3 class="text-lg font-semibold mb-4">Documents Submitted</h3>
+      <ul id="documentsList" class="list-disc list-inside text-gray-700">
+        <!-- Document list populated by JS -->
+      </ul>
+    </div>
+
+    <!-- Notifications / Messages -->
+    <div class="bg-white shadow-md rounded-lg p-6">
+      <h3 class="text-lg font-semibold mb-4">Notifications</h3>
+      <ul id="notificationsList" class="list-disc list-inside text-gray-700">
+        <!-- Notifications populated by JS -->
+      </ul>
+    </div>
+
+    <!-- Actions / Quick Links -->
+    <div class="bg-white shadow-md rounded-lg p-6 flex flex-col md:flex-row gap-4">
+      <button class="bg-[#A6192E] text-white px-4 py-2 rounded hover:bg-red-700 transition">Edit Application</button>
+      <button class="bg-gray-700 text-white px-4 py-2 rounded hover:bg-gray-800 transition">Download Application PDF</button>
+      <button class="bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-700 transition">Contact Support</button>
+    </div>
+
+    <!-- What’s Next -->
+    <div class="bg-white shadow-md rounded-lg p-6">
+      <h3 class="text-lg font-semibold mb-4">Next Steps</h3>
+      <p id="nextSteps" class="text-gray-700">Your next steps will be displayed here after application review.</p>
+    </div>
+
+  </main>
+
+  <!-- Footer -->
+  <footer class="bg-gray-200 text-center py-3 text-sm text-gray-600">
+    © 2025 ACP New Teacher Application Portal. All rights reserved.
+  </footer>
+
+  <script>
+    // Logout button
+    document.getElementById('logoutBtn').addEventListener('click', () => {
+      fetch('/logout')
+        .then(() => window.location.href = '/index.html');
+    });
+
+    // Auth check: redirect to login if not logged in
+    fetch('/session-check')
+      .then(res => res.json())
+      .then(data => {
+        if (!data.loggedIn) window.location.href = '/index.html';
+        else fetchApplication(); // fetch their application info
+      });
+
+    // Fetch application info for logged-in teacher
+    function fetchApplication() {
+      fetch('/get-application')
+        .then(res => res.json())
+        .then(data => {
+          if (!data.success) {
+            document.getElementById('appDetails').innerHTML = '<p class="text-red-500">No application found.</p>';
+            return;
+          }
+
+          const app = data.application;
+          document.getElementById('teacherName').textContent = app.name || 'Teacher';
+          document.getElementById('appStatus').textContent = app.status || 'Pending';
+
+          // Progress Bar based on status
+          const progressMap = { 'Pending': 25, 'Under Review': 50, 'Approved': 100, 'Rejected': 100 };
+          document.getElementById('progressBar').style.width = (progressMap[app.status] || 0) + '%';
+
+          // Application Details
+          const detailsContainer = document.getElementById('appDetails');
+          detailsContainer.innerHTML = `
+            <p><strong>Full Name:</strong> ${app.name}</p>
+            <p><strong>Email:</strong> ${app.email}</p>
+            <p><strong>Phone:</strong> ${app.phone || 'N/A'}</p>
+            <p><strong>School:</strong> ${app.school || 'N/A'}</p>
+            <p><strong>District:</strong> ${app.district || 'N/A'}</p>
+            <p><strong>City:</strong> ${app.city || 'N/A'}</p>
+            <p><strong>State:</strong> ${app.state || 'N/A'}</p>
+            <p><strong>ZIP:</strong> ${app.zip || 'N/A'}</p>
+            <p><strong>Department:</strong> ${app.department || 'N/A'}</p>
+            <p><strong>Eligibility:</strong> ${app.eligibility || 'N/A'}</p>
+            <p><strong>Degree:</strong> ${app.degree || 'N/A'}</p>
+            <p><strong>Experience:</strong> ${app.experience || 'N/A'}</p>
+          `;
+
+          // Documents
+          const docsList = document.getElementById('documentsList');
+          docsList.innerHTML = (app.documents && app.documents.length > 0)
+            ? app.documents.map(d => `<li>${d}</li>`).join('')
+            : '<li>No documents submitted yet.</li>';
+
+          // Notifications
+          const notifList = document.getElementById('notificationsList');
+          notifList.innerHTML = (app.notifications && app.notifications.length > 0)
+            ? app.notifications.map(n => `<li>${n}</li>`).join('')
+            : '<li>No new notifications.</li>';
+
+          // Next Steps
+          const nextSteps = document.getElementById('nextSteps');
+          if(app.status === 'Approved') {
+            nextSteps.textContent = 'Your application has been approved. Prepare for onboarding and training sessions.';
+          } else if(app.status === 'Rejected') {
+            nextSteps.textContent = 'Unfortunately, your application was rejected. Contact support for more details.';
+          } else {
+            nextSteps.textContent = 'Your application is being reviewed. No action is needed at this time.';
+          }
+        })
+        .catch(err => {
+          console.error(err);
+          document.getElementById('appDetails').innerHTML = '<p class="text-red-500">Error fetching application.</p>';
+        });
+    }
+  </script>
 </body>
 </html>
-
-
 
